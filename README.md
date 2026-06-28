@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 
 # 🚀 FindTheJob AI - Production Deployment Guide
 
@@ -493,3 +494,6 @@ Project Flow:
 # Author
 
 FindTheJob AI Project
+=======
+# Resumeoptimizer-AI
+>>>>>>> 9f91029dcf79658f70a144ff159a003b27342d64
