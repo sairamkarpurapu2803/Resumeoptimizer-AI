@@ -293,7 +293,7 @@ sudo apt install git docker.io docker-compose-plugin -y
 
 
 ```bash
-git clone YOUR_GITHUB_REPO
+git clone https://github.com/sairamkarpurapu2803/Resumeoptimizer-AI.git
 
 cd FindTheJob
 ```
