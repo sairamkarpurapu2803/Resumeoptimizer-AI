@@ -1,0 +1,8 @@
+
+fastapi
+uvicorn
+scikit-learn
+python-jose
+sqlalchemy
+psycopg2-binary
+python-multipart

@@ -1,0 +1,20 @@
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+ name: findthejob-backend
+spec:
+ replicas: 2
+ selector:
+  matchLabels:
+   app: backend
+ template:
+  metadata:
+   labels:
+    app: backend
+  spec:
+   containers:
+   - name: backend
+     image: findthejob-api
+     ports:
+     - containerPort: 8000
