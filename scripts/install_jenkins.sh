@@ -13,20 +13,26 @@ sudo rm -f /etc/apt/keyrings/jenkins-keyring.gpg
 
 # Install prerequisites
 sudo apt update
-sudo apt install -y curl wget gnupg ca-certificates fontconfig openjdk-21-jdk
+sudo apt install -y \
+    openjdk-21-jdk \
+    curl \
+    wget \
+    gnupg \
+    ca-certificates \
+    fontconfig
 
 # Create keyring directory
-sudo mkdir -p /etc/apt/keyrings
+sudo mkdir -p /usr/share/keyrings
 
-# Download the latest Jenkins repository key
-sudo wget -O /etc/apt/keyrings/jenkins-keyring.asc \
-https://pkg.jenkins.io/debian-stable/jenkins.io-2023.key
+# Download the NEW Jenkins 2026 signing key
+curl -fsSL https://pkg.jenkins.io/debian-stable/jenkins.io-2026.key \
+| sudo tee /usr/share/keyrings/jenkins-keyring.asc >/dev/null
 
 # Add Jenkins repository
-echo "deb [signed-by=/etc/apt/keyrings/jenkins-keyring.asc] https://pkg.jenkins.io/debian-stable binary/" | \
-sudo tee /etc/apt/sources.list.d/jenkins.list >/dev/null
+echo "deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc] https://pkg.jenkins.io/debian-stable binary/" \
+| sudo tee /etc/apt/sources.list.d/jenkins.list >/dev/null
 
-# Update package list
+# Update package index
 sudo apt update
 
 # Install Jenkins
@@ -37,11 +43,16 @@ sudo systemctl enable jenkins
 sudo systemctl start jenkins
 
 echo
-echo "Jenkins Version:"
-jenkins --version || true
+echo "======================================"
+echo "Jenkins Installed Successfully"
+echo "======================================"
 
 echo
-echo "Service Status:"
+echo "Java Version:"
+java -version
+
+echo
+echo "Jenkins Status:"
 sudo systemctl status jenkins --no-pager
 
 echo
