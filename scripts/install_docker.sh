@@ -1,5 +1,5 @@
-
 #!/bin/bash
+set -e
 
 sudo apt update
 
@@ -10,5 +10,8 @@ sudo systemctl start docker
 
 sudo usermod -aG docker $USER
 
-docker --version
-docker compose version
+sudo docker --version
+sudo docker compose version
+
+echo "Docker installed successfully."
+echo "Please log out and log back in (or reboot) to use Docker without sudo."
