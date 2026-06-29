@@ -1,0 +1,32 @@
+# ==========================
+# Application
+# ==========================
+APP_NAME=FindTheJob AI
+ENVIRONMENT=production
+DEBUG=False
+
+# ==========================
+# Backend
+# ==========================
+HOST=0.0.0.0
+PORT=8000
+SECRET_KEY=ChangeThisToALongRandomSecretKey123!
+
+# ==========================
+# PostgreSQL
+# ==========================
+POSTGRES_DB=findthejob
+POSTGRES_USER=findthejob
+POSTGRES_PASSWORD=ChangeThisStrongPassword123!
+
+DATABASE_URL=postgresql://findthejob:ChangeThisStrongPassword123!@postgres:5432/findthejob
+
+# ==========================
+# Frontend
+# ==========================
+VITE_API_URL=http://YOUR_VM_PUBLIC_IP/api
+
+# ==========================
+# Timezone
+# ==========================
+TZ=Asia/Kolkata
