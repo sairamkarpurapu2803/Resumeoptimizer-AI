@@ -1,5 +1,7 @@
-
 #!/bin/bash
+set -e
+
+sudo apt update
 
 curl -fsSL https://deb.nodesource.com/setup_22.x | sudo -E bash -
 
