@@ -7,40 +7,43 @@ echo "======================================"
 
 # Remove old Jenkins repository and keys
 sudo rm -f /etc/apt/sources.list.d/jenkins.list
-sudo rm -f /etc/apt/keyrings/jenkins-keyring.gpg
 sudo rm -f /usr/share/keyrings/jenkins-keyring.asc
-
-# Update package list
-sudo apt update
+sudo rm -f /etc/apt/keyrings/jenkins-keyring.asc
+sudo rm -f /etc/apt/keyrings/jenkins-keyring.gpg
 
 # Install prerequisites
-sudo apt install -y openjdk-21-jdk curl ca-certificates gnupg
+sudo apt update
+sudo apt install -y curl wget gnupg ca-certificates fontconfig openjdk-21-jdk
 
-# Create keyrings directory
+# Create keyring directory
 sudo mkdir -p /etc/apt/keyrings
 
-# Download and install Jenkins GPG key
-curl -fsSL https://pkg.jenkins.io/debian-stable/jenkins.io-2023.key | \
-sudo gpg --dearmor -o /etc/apt/keyrings/jenkins-keyring.gpg
+# Download the latest Jenkins repository key
+sudo wget -O /etc/apt/keyrings/jenkins-keyring.asc \
+https://pkg.jenkins.io/debian-stable/jenkins.io-2023.key
 
 # Add Jenkins repository
-echo "deb [signed-by=/etc/apt/keyrings/jenkins-keyring.gpg] https://pkg.jenkins.io/debian-stable binary/" | \
-sudo tee /etc/apt/sources.list.d/jenkins.list > /dev/null
+echo "deb [signed-by=/etc/apt/keyrings/jenkins-keyring.asc] https://pkg.jenkins.io/debian-stable binary/" | \
+sudo tee /etc/apt/sources.list.d/jenkins.list >/dev/null
 
-# Update package list again
+# Update package list
 sudo apt update
 
 # Install Jenkins
 sudo apt install -y jenkins
 
-# Start and enable Jenkins
+# Enable and start Jenkins
 sudo systemctl enable jenkins
 sudo systemctl start jenkins
 
-echo "======================================"
-echo "Jenkins Installed Successfully"
-echo "======================================"
+echo
+echo "Jenkins Version:"
+jenkins --version || true
 
-# Verify
-java -version
+echo
+echo "Service Status:"
 sudo systemctl status jenkins --no-pager
+
+echo
+echo "Initial Admin Password:"
+sudo cat /var/lib/jenkins/secrets/initialAdminPassword
